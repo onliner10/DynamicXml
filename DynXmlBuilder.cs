@@ -1,50 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
+﻿using System.Dynamic;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace DynXml
+namespace DynamicXml
 {
-    public class DynamicXml
-    {
-        public static DynamicXml FromString(string content)
-        {
-            return new DynamicXml(XDocument.Parse(content));
-        }
-
-        public static dynamic Builder()
-        {
-            return new DynamicXmlBuilder();
-        }
-
-        private readonly XDocument _content;
-
-        private DynamicXml(XDocument content)
-        {
-            _content = content;
-        }
-
-        public dynamic root
-        {
-            get { return new DynamicNode(_content.Root); }
-        }
-    }
-
-    public class DynamicXmlBuilder : DynamicObject
+    public class DynXmlBuilder : DynamicObject
     {
         private readonly XElement _parentElement;
 
-        public DynamicXmlBuilder(XElement parentElement = null)
+        public DynXmlBuilder(XElement parentElement = null)
         {
             _parentElement = parentElement;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            result = new DynamicXmlBuilder(GetElement(binder.Name));
+            result = new DynXmlBuilder(GetElement(binder.Name));
 
             return true;
         }
@@ -75,7 +46,7 @@ namespace DynXml
                 _parentElement.Add(entityElement);
             }
             
-            result = new DynamicXmlBuilder(_parentElement);
+            result = new DynXmlBuilder(_parentElement);
 
             return true;
         }
@@ -99,9 +70,9 @@ namespace DynXml
             resultDocument.Add(_currentElement);
 
             return new StringBuilder()
-                            .AppendLine(resultDocument.Declaration.ToString())
-                            .Append(resultDocument)
-                            .ToString();
+                .AppendLine(resultDocument.Declaration.ToString())
+                .Append(resultDocument)
+                .ToString();
         }
     }
 }

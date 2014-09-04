@@ -40,7 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicNode.cs" />
-    <Compile Include="DynamicXml.cs" />
+    <Compile Include="DynXml.cs" />
+    <Compile Include="DynXmlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

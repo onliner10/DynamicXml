@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace DynXml
+namespace DynamicXml
 {
     public class DynamicNode : DynamicObject
     {
