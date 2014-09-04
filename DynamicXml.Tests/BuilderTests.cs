@@ -85,7 +85,7 @@ namespace DynXml.Tests
 
             class adding_new_nested_element_to_another_nested_node
             {
-                private Establish new_element_added = () => _builder.persons[1].birth_year = "1980";
+                private Establish new_element_added = () => _builder.persons.person[1].birth_year = "1980";
 
                 It should_add_new_node_to_Existing =
                     () => _xml.ShouldEqual("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\r\n"
@@ -98,10 +98,6 @@ namespace DynXml.Tests
                                          + "    <name>name2</name>\r\n"
                                          + "    <surname>surname2</surname>\r\n"
                                          + "    <birth_year>1980</birth_year>\r\n"
-                                         + "  </person>\r\n"
-                                         + "  <person>\r\n"
-                                         + "    <name>name3</name>\r\n"
-                                         + "    <surname>surname3</surname>\r\n"
                                          + "  </person>\r\n"
                                          + "</persons>");
             }

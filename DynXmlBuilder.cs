@@ -1,4 +1,6 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Dynamic;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
@@ -15,7 +17,14 @@ namespace DynamicXml
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            result = new DynXmlBuilder(GetElement(binder.Name));
+            if (_parentElement != null && _parentElement.Elements(binder.Name).Any())
+            {
+                result = _parentElement.Elements(binder.Name).Select(e => new DynXmlBuilder(e)).ToArray();
+            }
+            else
+            {
+                result = new DynXmlBuilder(GetElement(binder.Name));    
+            }
 
             return true;
         }
