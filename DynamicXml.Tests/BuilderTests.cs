@@ -101,6 +101,24 @@ namespace DynXml.Tests
                                          + "  </person>\r\n"
                                          + "</persons>");
             }
+
+            class editing_existing_node_within_nested_node
+            {
+                private Establish element_modified = () => _builder.persons.person[0].surname = "name_updated";
+
+                It should_edit_existing_node =
+                    () => _xml.ShouldEqual("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\r\n"
+                                         + "<persons>\r\n"
+                                         + "  <person>\r\n"
+                                         + "    <name>name1</name>\r\n"
+                                         + "    <surname>name_updated</surname>\r\n"
+                                         + "  </person>\r\n"
+                                         + "  <person>\r\n"
+                                         + "    <name>name2</name>\r\n"
+                                         + "    <surname>surname2</surname>\r\n"
+                                         + "  </person>\r\n"
+                                         + "</persons>");
+            }
         }
 
         private static dynamic _builder;

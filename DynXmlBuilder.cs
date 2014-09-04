@@ -17,7 +17,7 @@ namespace DynamicXml
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            if (_parentElement != null && _parentElement.Elements(binder.Name).Any())
+            if (_parentElement != null && _parentElement.Elements(binder.Name).Count() > 1)
             {
                 result = _parentElement.Elements(binder.Name).Select(e => new DynXmlBuilder(e)).ToArray();
             }
@@ -31,8 +31,18 @@ namespace DynamicXml
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            var currentElement = GetElement(binder.Name);
-            currentElement.SetValue(value);
+            if (_parentElement != null && _parentElement.Elements(binder.Name).Count() == 1)
+            {
+                _parentElement
+                    .Elements(binder.Name)
+                    .Single()
+                    .SetValue(value);
+            }
+            else
+            {
+                var currentElement = GetElement(binder.Name);
+                currentElement.SetValue(value);
+            }
 
             return true;
         }
