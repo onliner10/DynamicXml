@@ -13,7 +13,7 @@ namespace DynamicXml.Tests
 
         private It should_have_correct_node_value = () =>
         {
-            string rootValue = _document.root;
+            string rootValue = _document.body;
             rootValue.ShouldEqual("working");
         };
 
@@ -28,7 +28,7 @@ namespace DynamicXml.Tests
 
             private It should_have_correct_node_value = () =>
             {
-                string bold = _document.root.p.b;
+                string bold = _document.body.p.b;
                 bold.ShouldEqual("text");
             };
         }
@@ -39,8 +39,8 @@ namespace DynamicXml.Tests
 
             private It should_have_correct_nodes_values = () =>
             {
-                string firstBold = _document.root.p.b[0];
-                string secondBold = _document.root.p.b[1];
+                string firstBold = _document.body.p.b[0];
+                string secondBold = _document.body.p.b[1];
 
                 firstBold.ShouldEqual("text1");
                 secondBold.ShouldEqual("text2");
@@ -55,12 +55,12 @@ namespace DynamicXml.Tests
 
             private It should_throw_exception = () =>
             {
-                var exception = Catch.Exception(() => _document.root.b);
+                var exception = Catch.Exception(() => _document.body.b);
 
                 exception.ShouldBeOfExactType(typeof(ArgumentException));
             };
         }
 
-        private static DynamicXml.DynXML _document;
+        private static dynamic _document;
     }
 }
